@@ -18,7 +18,7 @@ namespace EmployeeDiaryModel.Model
 
         public Certificate([NotNull] string certificateName, [NotNull] string releaseBy)
         {
-            Id = new Guid();
+            Id = Guid.NewGuid();
             CertificateName = certificateName;
             ReleasedBy = releaseBy;
         }
