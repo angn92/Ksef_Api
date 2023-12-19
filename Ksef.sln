@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeDiary", "EmployeeDiary\EmployeeDiary.csproj", "{E230937F-043B-4101-959E-5EE9A5AB4E42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KsefApi", "EmployeeDiary\KsefApi.csproj", "{E230937F-043B-4101-959E-5EE9A5AB4E42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeDiaryModel", "EmployeeDiaryModel\EmployeeDiaryModel.csproj", "{FEA60137-0253-4465-8FD9-096C0CFFA5FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KsefCore", "EmployeeDiaryModel\KsefCore.csproj", "{FEA60137-0253-4465-8FD9-096C0CFFA5FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KsefInfrastructure", "KsefInfrastructure\KsefInfrastructure.csproj", "{66D190E8-08B3-4C7D-8153-605ED7665949}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{FEA60137-0253-4465-8FD9-096C0CFFA5FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEA60137-0253-4465-8FD9-096C0CFFA5FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEA60137-0253-4465-8FD9-096C0CFFA5FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66D190E8-08B3-4C7D-8153-605ED7665949}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66D190E8-08B3-4C7D-8153-605ED7665949}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66D190E8-08B3-4C7D-8153-605ED7665949}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66D190E8-08B3-4C7D-8153-605ED7665949}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
