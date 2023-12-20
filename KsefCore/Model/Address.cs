@@ -10,6 +10,10 @@ namespace KsefCore.Model
         public Guid ContractorId { get; set; }
         public Contractor Contractor { get; set; }
 
+        public Address()
+        {
+        }
+
         public Address([NotNull] string addres)
         {
             Id = Guid.NewGuid();

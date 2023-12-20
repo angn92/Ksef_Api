@@ -12,6 +12,9 @@ namespace EmployeeDiaryModel.Model
         public string Email { get; set; }
         public Address Address { get; set; }
 
+        public Contractor()
+        {
+        }
 
         public Contractor([NotNull] string firstName, [NotNull] string lastName, [NotNull] string nip, [NotNull] string email, [NotNull] string address)
         {
