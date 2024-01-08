@@ -4,14 +4,14 @@ using KsefInfrastructure.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
 
-<<<<<<< HEAD
+
 //Autofac container
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(x => x.RegisterModule(new AutofacModule()));
-=======
+
 // Add services to the container.
 builder.Services.AddHttpClient();
->>>>>>> 8892e92 (Ksef Api implementation)
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
