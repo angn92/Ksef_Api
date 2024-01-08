@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\KsefClient\KsefClient.csproj" />
     <ProjectReference Include="..\KsefInfrastructure\KsefInfrastructure.csproj" />
   </ItemGroup>
 

@@ -4,11 +4,13 @@ namespace KsefApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SessionController : Controller
+    public class SessionController : ControllerBase
     {
-        public IActionResult Index()
+        [HttpGet]
+        [Route("/[controller]/[action]/{id}")]
+        public ActionResult Overview(int? id)
         {
-            return View();
+            return Ok(id);
         }
     }
 }
