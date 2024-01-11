@@ -1,9 +1,10 @@
-﻿using KsefClient.KsefSession;
+﻿using JetBrains.Annotations;
+using KsefClient.KsefContract.Session;
 
 namespace KsefClient.ClientHttp
 {
     public interface IAuthChallenge
     {
-        ValueTask<AuthorisationChallenge> GetAuthorisationChallengeAsync(string type, string identifier);
+        ValueTask<AuthorisationChallengeResponse> GetAuthorisationChallengeAsync([NotNull] string type, [NotNull] string identifier);
     }
 }

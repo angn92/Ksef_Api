@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using KsefClient.ClientHttp;
 using KsefInfrastructure.EF;
 
 namespace KsefInfrastructure.IoC
@@ -9,6 +10,12 @@ namespace KsefInfrastructure.IoC
         {
             builder.RegisterType<AppDbContext>()
                 .InstancePerLifetimeScope();
+
+            builder.RegisterType<KsefApiHttp>()
+                .As<IAuthChallenge>()
+                .InstancePerLifetimeScope();
+
+            
         }
     }
 }

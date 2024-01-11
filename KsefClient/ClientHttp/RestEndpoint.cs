@@ -1,6 +1,6 @@
 ﻿namespace KsefClient.ClientHttp
 {
-    public static class UriConfiguration
+    public static class RestEndpoint
     {
         public static string AuthChallenge { get; } = "/online/Session/AuthorisationChallenge";
     }
