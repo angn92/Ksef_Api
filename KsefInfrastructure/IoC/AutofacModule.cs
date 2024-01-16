@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using KsefClient.ClientHttp;
+using KsefInfrastructure.Command;
 using KsefInfrastructure.CQRS;
 using KsefInfrastructure.EF;
 
@@ -21,14 +22,17 @@ namespace KsefInfrastructure.IoC
                 .As<IRequestDispatcher>()
                 .InstancePerLifetimeScope();
 
+            builder.RegisterAssemblyTypes(ThisAssembly)
+                .Where(x => x.IsAssignableTo<IRequest>())
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
+
             builder.RegisterType<AppDbContext>()
                 .InstancePerLifetimeScope();
 
             builder.RegisterType<KsefApiHttp>()
                 .As<IAuthChallenge>()
                 .InstancePerLifetimeScope();
-
-            
         }
     }
 }
