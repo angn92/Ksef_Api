@@ -1,27 +1,28 @@
 ﻿using KsefClient.ClientHttp;
+using KsefInfrastructure.CQRS;
+using KsefInfrastructure.Session;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KsefApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/")]
     [ApiController]
     public class SessionController : ControllerBase
     {
+        private readonly IRequestDispatcher _requestDispatcher;
         private readonly IAuthChallenge _authChallenge;
         
-
-        public SessionController(IAuthChallenge authChallenge)
+        public SessionController(IRequestDispatcher requestDispatcher, IAuthChallenge authChallenge)
         {
+            _requestDispatcher = requestDispatcher;
             _authChallenge = authChallenge;
-            
         }
 
-        [HttpGet]
-        [Route("/[controller]/[action]/{id}")]
-        public async Task<string> Overview(int? id)
+        [HttpPost]
+        [Route("CreateSession")]
+        public async Task<CreateSessionResponse> CreateSession([FromBody] CreateSessionRequest request)
         {
-            await _authChallenge.GetAuthorisationChallengeAsync("onip", "6770065406");
-            return "aa";
+            return await _requestDispatcher.DispatchAsync<CreateSessionRequest, CreateSessionResponse>(request);
         }
     }
 }
