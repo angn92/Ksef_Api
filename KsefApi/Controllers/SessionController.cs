@@ -1,5 +1,4 @@
-﻿using KsefClient.ClientHttp;
-using KsefInfrastructure.CQRS;
+﻿using KsefInfrastructure.CQRS;
 using KsefInfrastructure.Session;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,14 +9,17 @@ namespace KsefApi.Controllers
     public class SessionController : ControllerBase
     {
         private readonly IRequestDispatcher _requestDispatcher;
-        private readonly IAuthChallenge _authChallenge;
         
-        public SessionController(IRequestDispatcher requestDispatcher, IAuthChallenge authChallenge)
+        public SessionController(IRequestDispatcher requestDispatcher)
         {
             _requestDispatcher = requestDispatcher;
-            _authChallenge = authChallenge;
         }
 
+        /// <summary>
+        /// End point for for starting connection with Ksef API
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("CreateSession")]
         public async Task<CreateSessionResponse> CreateSession([FromBody] CreateSessionRequest request)

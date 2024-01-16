@@ -2,6 +2,8 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using KsefClient.ClientHttp;
 using KsefInfrastructure.IoC;
+using Microsoft.Extensions.Options;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,12 +17,13 @@ builder.Host.ConfigureContainer<ContainerBuilder>(x => x.RegisterModule(new Auto
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddHttpClient<IAuthChallenge, KsefApiHttp>(client =>
+builder.Services.AddSwaggerGen(options =>
 {
-    client.BaseAddress = new Uri("https://ksef-test.mf.gov.pl/api/online/Session/AuthorisationChallenge");
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
+
+builder.Services.AddHttpClient("KsefApiHttp");
 
 var app = builder.Build();
 
