@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using KsefClient.ClientHttp;
+using KsefClient.Helpers;
 using KsefInfrastructure.Command;
 using KsefInfrastructure.CQRS;
 using KsefInfrastructure.EF;
@@ -32,6 +33,10 @@ namespace KsefInfrastructure.IoC
 
             builder.RegisterType<KsefApiHttp>()
                 .As<IAuthChallenge>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<UriHelper>()
+                .As<IUriHelper>()
                 .InstancePerLifetimeScope();
         }
     }

@@ -2,6 +2,6 @@
 {
     public static class RestEndpoint
     {
-        public static string AuthChallenge { get; } = "/online/Session/AuthorisationChallenge";
+        public static string AuthChallenge { get; } = "online/Session/AuthorisationChallenge";
     }
 }
