@@ -38,6 +38,10 @@ namespace KsefInfrastructure.IoC
             builder.RegisterType<UriHelper>()
                 .As<IUriHelper>()
                 .InstancePerLifetimeScope();
+
+            builder.RegisterType<XmlHelper>()
+                .As<IXmlHelper>()
+                .InstancePerLifetimeScope();
         }
     }
 }

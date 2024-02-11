@@ -1,4 +1,5 @@
 ﻿using KsefClient.ClientHttp;
+using KsefClient.Helpers;
 using KsefInfrastructure.CQRS;
 using KsefInfrastructure.Validation;
 
@@ -7,10 +8,12 @@ namespace KsefInfrastructure.Session
     public class CreateSessionInvocation : IRequestHandler<CreateSessionRequest, CreateSessionResponse>
     {
         private readonly IAuthChallenge _authChallenge;
+        private readonly IXmlHelper _xmlHelper;
 
-        public CreateSessionInvocation(IAuthChallenge authChallenge)
+        public CreateSessionInvocation(IAuthChallenge authChallenge, IXmlHelper xmlHelper)
         {
             _authChallenge = authChallenge;
+            _xmlHelper = xmlHelper;
         }
 
         public async ValueTask<CreateSessionResponse> HandleAsync(CreateSessionRequest request, CancellationToken cancellationToken = default)

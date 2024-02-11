@@ -44,11 +44,8 @@ namespace KsefClient.ClientHttp
             var httpResponseMessage = await _httpClient.PostAsync(path, content);
 
             if (!httpResponseMessage.IsSuccessStatusCode)
-            {
-                // Error 
-                
-            }
-
+                throw new Exception($"Sending request is fail {httpResponseMessage.StatusCode}"); 
+            
             var result = httpResponseMessage.Content.ReadAsStringAsync().Result;
             var authChallengeResponse = JsonSerializer.Deserialize<AuthorisationChallengeResponse>(result);
 

@@ -18,7 +18,7 @@ namespace KsefApi.Controllers
         }
 
         /// <summary>
-        /// End point for for starting connection with Ksef API
+        /// Init session with Ksef API
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
