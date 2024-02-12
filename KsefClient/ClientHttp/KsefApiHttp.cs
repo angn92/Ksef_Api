@@ -1,7 +1,9 @@
 ﻿using JetBrains.Annotations;
 using KsefClient.Common;
 using KsefClient.Helpers;
+using KsefClient.KsefContract.Common;
 using KsefClient.KsefContract.Session.AuthorisationChallenge;
+using KsefClient.KsefContract.Session.InitSigned;
 using Microsoft.Extensions.Logging;
 using System.Text;
 using System.Text.Json;
@@ -14,7 +16,8 @@ namespace KsefClient.ClientHttp
         private readonly IUriHelper _uriHelper;
         private readonly ILogger<KsefApiHttp> _logger;
         private const string Json = "application/json";
-        
+        private const string Octet = "application/octet-stream";
+
         public KsefApiHttp(HttpClient httpClient, IUriHelper uriHelper, ILogger<KsefApiHttp> logger)
         {
             _httpClient = httpClient;
@@ -52,6 +55,11 @@ namespace KsefClient.ClientHttp
             _logger.LogInformation(KsefLogData.BuildResponseLog(result, path, HttpMethod.Post, (int)httpResponseMessage.StatusCode));
 
             return new AuthorisationChallengeResponse(authChallengeResponse.Timestamp, authChallengeResponse.Challenge);
+        }
+
+        public ValueTask<InitSignedResponse> InitSigned([NotNull] string InitSignedFilePath)
+        {
+            throw new NotImplementedException();
         }
     }
 }
