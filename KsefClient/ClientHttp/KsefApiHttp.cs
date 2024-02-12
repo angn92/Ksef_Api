@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using KsefClient.Common;
 using KsefClient.Helpers;
-using KsefClient.KsefContract.Session;
+using KsefClient.KsefContract.Session.AuthorisationChallenge;
 using Microsoft.Extensions.Logging;
 using System.Text;
 using System.Text.Json;

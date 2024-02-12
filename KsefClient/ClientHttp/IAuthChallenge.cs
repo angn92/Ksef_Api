@@ -1,5 +1,5 @@
 ﻿using JetBrains.Annotations;
-using KsefClient.KsefContract.Session;
+using KsefClient.KsefContract.Session.AuthorisationChallenge;
 
 namespace KsefClient.ClientHttp
 {

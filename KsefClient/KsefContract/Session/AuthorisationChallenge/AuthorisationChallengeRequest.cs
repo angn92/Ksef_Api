@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace KsefClient.KsefContract.Session
+namespace KsefClient.KsefContract.Session.AuthorisationChallenge
 {
     public class AuthorisationChallengeRequest
     {
