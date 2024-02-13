@@ -1,5 +1,4 @@
-﻿using EmployeeDiaryModel.Model;
-using KsefCore.Model;
+﻿using KsefCore.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -9,9 +8,8 @@ namespace KsefInfrastructure.EF
     {
         private readonly IConfiguration _configuration;
 
-        public DbSet<ClientSession> ClientSession { get; set; }
-        public DbSet<Contractor> Contractor { get; set; }
-        public DbSet<Address> Address { get; set; }
+        public DbSet<AuthorizationToken> AuthorizationToken { get; set; }
+        
 
         public AppDbContext(IConfiguration configuration)
         {
@@ -23,6 +21,22 @@ namespace KsefInfrastructure.EF
             // Get connection string from AppSettings
             var connectionString = _configuration.GetConnectionString("KsefApiDatabase");
             optionsBuilder.UseSqlServer(connectionString);
+        }
+
+        public override int SaveChanges()
+        {
+            foreach (var auditableEntity in ChangeTracker.Entries<BaseEntity>())
+            {
+                if (auditableEntity.State == EntityState.Added || auditableEntity.State == EntityState.Modified)
+                {
+                    auditableEntity.Entity.Modified = DateTime.UtcNow;
+
+                    if(auditableEntity.State == EntityState.Added)
+                        auditableEntity.Entity.Created = DateTime.UtcNow;
+                }
+            }
+
+            return base.SaveChanges();
         }
     }
 }
