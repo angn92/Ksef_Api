@@ -1,8 +1,8 @@
 ﻿namespace EmployeeDiaryModel.Enums
 {
-    public enum SessionStatus
+    public enum TokenStatus
     {
-        NotAuthenticated = 0,
-        Authenticated = 1
+        Active = 0,
+        NotActive = 1
     }
 }
