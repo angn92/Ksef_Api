@@ -12,7 +12,7 @@ namespace KsefClient.Common
             sb.AppendLine($"Method: {httpMethod}");
             sb.AppendLine($"Path: {path}");
             sb.AppendLine($"Request content: {requestContent}");
-            sb.AppendLine($"Headers: ");
+            sb.AppendLine($"Headers: "); //todo: add headers to log
 
             return sb.ToString();
         }
@@ -26,7 +26,7 @@ namespace KsefClient.Common
             sb.AppendLine($"Status code: {statusCode}");
             sb.AppendLine($"Path: {path}");
             sb.AppendLine($"Request content: {responseContent}");
-            sb.AppendLine($"Headers: ");
+            sb.AppendLine($"Headers: "); //todo: add headers to log
 
             return sb.ToString();
         }

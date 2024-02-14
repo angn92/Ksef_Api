@@ -1,7 +1,7 @@
 ﻿using KsefInfrastructure.Command;
 using System.Text.Json.Serialization;
 
-namespace KsefInfrastructure.Contract.Status.Token
+namespace KsefInfrastructure.Contract.Token.Validate
 {
     public class TokenStatusRequest : IRequest
     {
