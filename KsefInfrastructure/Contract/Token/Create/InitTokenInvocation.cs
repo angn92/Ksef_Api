@@ -40,16 +40,14 @@ namespace KsefInfrastructure.Contract.Token.Create
             var authorizationChallenge = await _authChallenge.GetAuthorisationChallengeAsync(request.Command.Type, request.Command.Identifier);
 
             // InitSigned second step
-            _xmlHelper.PrepareInitSessionXmlRequest(BuildFilePath(), authorizationChallenge.Challenge, request.Command.Identifier, "token");
+            _xmlHelper.PrepareInitSessionXmlRequest(BuildFilePath(), authorizationChallenge.Challenge, request.Command.Identifier/*, "token"*/);
         }
 
         private string BuildFilePath()
         {
             var sb = new StringBuilder();
             sb.Append(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName);
-              var path = _configuration.GetSection("InitSignedXmlFilePath").Value;
-
-            sb.Append(path);
+            sb.Append(_configuration.GetSection("InitSignedXmlFilePath").Value);
             return sb.ToString();
         }
     }

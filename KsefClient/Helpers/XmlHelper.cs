@@ -5,14 +5,12 @@ namespace KsefClient.Helpers
 {
     public interface IXmlHelper
     {
-        void PrepareInitSessionXmlRequest([NotNull] string pathToXmlFile, [NotNull] string challenge, [NotNull] string identifier,
-            [NotNull] string token);
+        void PrepareInitSessionXmlRequest([NotNull] string pathToXmlFile, [NotNull] string challenge, [NotNull] string identifier);
     }
 
     public class XmlHelper : IXmlHelper
     {
-        public void PrepareInitSessionXmlRequest([NotNull] string pathToXmlFile, [NotNull] string challenge, [NotNull] string identifier,
-            [NotNull] string token)
+        public void PrepareInitSessionXmlRequest([NotNull] string pathToXmlFile, [NotNull] string challenge, [NotNull] string identifier)
         {
             var xmlDocument = new XmlDocument();
             xmlDocument.Load(pathToXmlFile);
@@ -20,15 +18,16 @@ namespace KsefClient.Helpers
             var elementsDictionary = new Dictionary<string, string>
             {
                 { "Challenge", challenge},
-                { "Identifier", identifier},
-                { "Token", token}
+                { "Identifier", identifier}
             };
 
             var itemNodes = FindNode(xmlDocument, elementsDictionary);
 
             for ( var index = 0; index < itemNodes.Length; index++)
             {
-                if (itemNodes[index].Name == elementsDictionary.ElementAt(index).Key)
+                if (itemNodes[index].Name == elementsDictionary.ElementAt(index).Key && itemNodes[index].FirstChild.HasChildNodes)
+                    itemNodes[index].FirstChild.InnerXml = elementsDictionary.ElementAt(index).Value;
+                else
                     itemNodes[index].InnerXml = elementsDictionary.ElementAt(index).Value;
             }
             
@@ -37,7 +36,7 @@ namespace KsefClient.Helpers
 
         private static XmlNode[] FindNode([NotNull] XmlDocument xDoc, Dictionary<string, string> elements)
         {
-            var nodeItems = new XmlNode[3];
+            var nodeItems = new XmlNode[2];
 
             for ( var index = 0; index < elements.Count; index++)
             {
