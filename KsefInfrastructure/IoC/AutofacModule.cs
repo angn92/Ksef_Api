@@ -4,6 +4,7 @@ using KsefClient.Helpers;
 using KsefInfrastructure.Command;
 using KsefInfrastructure.CQRS;
 using KsefInfrastructure.EF;
+using KsefInfrastructure.Helper;
 
 namespace KsefInfrastructure.IoC
 {
@@ -41,6 +42,10 @@ namespace KsefInfrastructure.IoC
 
             builder.RegisterType<XmlHelper>()
                 .As<IXmlHelper>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<CertificateHelper>()
+                .As<ICertificateHelper>()
                 .InstancePerLifetimeScope();
         }
     }

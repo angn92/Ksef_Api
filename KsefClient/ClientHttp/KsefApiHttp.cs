@@ -15,14 +15,16 @@ namespace KsefClient.ClientHttp
         private readonly HttpClient _httpClient;
         private readonly IUriHelper _uriHelper;
         private readonly ILogger<KsefApiHttp> _logger;
+        private readonly IXmlHelper _xmlHelper;
         private const string Json = "application/json";
         private const string Octet = "application/octet-stream";
 
-        public KsefApiHttp(HttpClient httpClient, IUriHelper uriHelper, ILogger<KsefApiHttp> logger)
+        public KsefApiHttp(HttpClient httpClient, IUriHelper uriHelper, ILogger<KsefApiHttp> logger, IXmlHelper xmlHelper)
         {
             _httpClient = httpClient;
             _uriHelper = uriHelper;
             _logger = logger;
+            _xmlHelper = xmlHelper;
             _httpClient.BaseAddress = new Uri("https://ksef-test.mf.gov.pl/api/");
         }
 
@@ -57,9 +59,20 @@ namespace KsefClient.ClientHttp
             return new AuthorisationChallengeResponse(authChallengeResponse.Timestamp, authChallengeResponse.Challenge);
         }
 
-        public ValueTask<InitSignedResponse> InitSigned([NotNull] string InitSignedFilePath)
+        public async ValueTask<InitSignedResponse> InitSignedSession([NotNull] string initSignedFilePath)
         {
-            throw new NotImplementedException();
+            var xmlAsString = _xmlHelper.GetXmlAsString(initSignedFilePath);
+
+            var content = new StringContent(xmlAsString, Encoding.UTF8, Octet);
+
+            var path = _uriHelper.GenerateUri(_httpClient.BaseAddress.ToString(), RestEndpoint.InitSegned);
+
+            var httpResponseMessage = await _httpClient.PostAsync(path, content);
+
+            var result = httpResponseMessage.Content.ReadAsStringAsync().Result;
+            var initSignedResponse = JsonSerializer.Deserialize<InitSignedResponse>(result);
+
+            return initSignedResponse;
         }
     }
 }
