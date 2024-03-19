@@ -33,30 +33,37 @@ namespace KsefInfrastructure.Contract.Token.Create
             Fail.IfNull(request.Command.Identifier);
             Fail.IfNull(request.Command.Type);
 
-            //todo: Validate NIP number
+            if (request.Command.Identifier.Length != 10)
+                throw new Exception("Wrong length of NIP number.");
             
-            
-
-
             _logger.LogInformation("Starting generate authorization token");
+
             // Get auth chellenge first step
             var authorizationChallenge = await _authChallenge.GetAuthorisationChallengeAsync(request.Command.Type, request.Command.Identifier);
 
+            var pathToFile = BuildFilePath("InitSignedXmlFilePath");
             // Fill InitSessionSignedRq file
-            _xmlHelper.PrepareInitSessionXmlRequest(BuildFilePath("InitSignedXmlFilePath"), authorizationChallenge.Challenge, 
-                request.Command.Identifier);
+            _xmlHelper.PrepareInitSessionXmlRequest(pathToFile, authorizationChallenge.Challenge, request.Command.Identifier);
+
+            
 
             // Xades
             var certificate = _certificateHelper.GetCertificate(Environment.GetEnvironmentVariable("Thumbprint").ToUpper() ?? "",
                 StoreLocation.LocalMachine) ?? throw new InvalidOperationException();
 
-            var xadesSign = _xmlHelper.PrepareXadesFile(BuildFilePath("InitSignedXmlFilePath"), certificate);
+            var xadesSign = _xmlHelper.PrepareXadesFile(pathToFile, certificate);
 
-            var initSession = await _authChallenge.InitSignedSession(BuildFilePath("InitSignedXmlFilePath"));
+            if (xadesSign != null)
+            {
+                var initSession = await _authChallenge.InitSignedSession(xadesSign);
+            }
         }
 
         private string BuildFilePath(string fileName)
         {
+            if(string.IsNullOrWhiteSpace(fileName))
+                throw new ArgumentNullException(nameof(fileName));
+
             var sb = new StringBuilder();
             sb.Append(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName);
             sb.Append(_configuration.GetSection(fileName).Value);

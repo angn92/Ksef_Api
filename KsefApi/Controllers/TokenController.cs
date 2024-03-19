@@ -3,7 +3,6 @@ using KsefInfrastructure.Contract.Token.Create;
 using KsefInfrastructure.Contract.Token.Validate;
 using KsefInfrastructure.CQRS;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.CompilerServices;
 
 namespace KsefApi.Controllers
 {
@@ -35,6 +34,11 @@ namespace KsefApi.Controllers
             return await _requestDispatcher.DispatchAsync<TokenStatusRequest, TokenStatusResponse>(request);
         }
 
+        /// <summary>
+        /// Generate new token to communicate with Ksef API
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("Generate")]
         public async ValueTask GenerateToken([NotNull] [FromBody] InitTokenCommand command)

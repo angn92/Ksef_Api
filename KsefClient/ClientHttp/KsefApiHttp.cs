@@ -59,11 +59,9 @@ namespace KsefClient.ClientHttp
             return new AuthorisationChallengeResponse(authChallengeResponse.Timestamp, authChallengeResponse.Challenge);
         }
 
-        public async ValueTask<InitSignedResponse> InitSignedSession([NotNull] string initSignedFilePath)
+        public async ValueTask<InitSignedResponse> InitSignedSession([NotNull] string initSession)
         {
-            var xmlAsString = _xmlHelper.GetXmlAsString(initSignedFilePath);
-
-            var content = new StringContent(xmlAsString, Encoding.UTF8, Octet);
+            var content = new StringContent(initSession, Encoding.UTF8, Octet);
 
             var path = _uriHelper.GenerateUri(_httpClient.BaseAddress.ToString(), RestEndpoint.InitSegned);
 

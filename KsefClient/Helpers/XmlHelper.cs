@@ -13,7 +13,7 @@ namespace KsefClient.Helpers
 
         string GetXmlAsString([NotNull] string pathToFile);
 
-        string PrepareXadesFile([NotNull] string pathToXmlFile, X509Certificate2 certificate);
+        string PrepareXadesFile([NotNull] string pathToXmlFile, [NotNull] X509Certificate2 certificate);
     }
 
     public class XmlHelper : IXmlHelper
@@ -82,11 +82,11 @@ namespace KsefClient.Helpers
 
             var xmlSigned = AddSignedSection(xmlDocument, certificate);
 
-            xmlDocument.DocumentElement.AppendChild(xmlDocument.ImportNode(xmlSigned.GetXml(), true));
-            return xmlDocument.OuterXml;
+            xmlDocument?.DocumentElement?.AppendChild(xmlDocument.ImportNode(xmlSigned.GetXml(), true));
+            return xmlDocument?.OuterXml ?? "";
         }
 
-        private SignedXml AddSignedSection([NotNull] XmlDocument xmlDocument, [NotNull] X509Certificate2 certificate)
+        private SignedXml AddSignedSection(XmlDocument xmlDocument, [NotNull] X509Certificate2 certificate)
         {
             //Create new instance of SignedXml
             var signedXml = new SignedXml(xmlDocument);
