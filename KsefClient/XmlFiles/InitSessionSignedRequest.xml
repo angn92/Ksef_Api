@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ns3:InitSessionSignedRequest xmlns="http://ksef.mf.gov.pl/schema/gtw/svc/online/types/2021/10/01/0001" xmlns:ns2="http://ksef.mf.gov.pl/schema/gtw/svc/types/2021/10/01/0001" xmlns:ns3="http://ksef.mf.gov.pl/schema/gtw/svc/online/auth/request/2021/10/01/0001">
   <ns3:Context>
-    <Challenge>20240319-CR-E6269F2CAD-14336C3AB8-32</Challenge>
+    <Challenge>20240320-CR-15DEB514BB-F1A1E2F29E-90</Challenge>
     <Identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:SubjectIdentifierByCompanyType">
       <ns2:Identifier>9313572486</ns2:Identifier>
     </Identifier>

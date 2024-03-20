@@ -33,7 +33,7 @@ namespace KsefClient.KsefContract.Session.InitSigned
         public ContextName ContextName { get; set; }
 
         [JsonPropertyName("credentialsRoleList")]
-        public CredentialsRoleList CredentialsRoleList { get; set; }
+        public List<CredentialsRoleList> CredentialsRoleList { get; set; }
     }
 
     public class ContextName
@@ -49,11 +49,6 @@ namespace KsefClient.KsefContract.Session.InitSigned
     }
 
     public class CredentialsRoleList
-    {
-        public IList<CredentialsRole> CredentialsRole { get; set; }
-    }
-
-    public class CredentialsRole
     {
         [JsonPropertyName("type")]
         public string Type { get; set; }
