@@ -10,22 +10,22 @@ using System.Text.Json;
 
 namespace KsefClient.ClientHttp
 {
-    public class KsefApiHttp : IAuthChallenge
+    public class KsefApiHttp : IKsefMethods
     {
         private readonly HttpClient _httpClient;
         private readonly IUriHelper _uriHelper;
         private readonly ILogger<KsefApiHttp> _logger;
-        private readonly IXmlHelper _xmlHelper;
+        
         private const string Json = "application/json";
         private const string Octet = "application/octet-stream";
+        private const string BaseAddress = "https://ksef-test.mf.gov.pl/api/";
 
-        public KsefApiHttp(HttpClient httpClient, IUriHelper uriHelper, ILogger<KsefApiHttp> logger, IXmlHelper xmlHelper)
+        public KsefApiHttp(HttpClient httpClient, IUriHelper uriHelper, ILogger<KsefApiHttp> logger)
         {
             _httpClient = httpClient;
             _uriHelper = uriHelper;
             _logger = logger;
-            _xmlHelper = xmlHelper;
-            _httpClient.BaseAddress = new Uri("https://ksef-test.mf.gov.pl/api/");
+            _httpClient.BaseAddress = new Uri(BaseAddress);
         }
 
         public async ValueTask<AuthorisationChallengeResponse> GetAuthorisationChallengeAsync([NotNull] string type, [NotNull] string identifier)
@@ -42,7 +42,7 @@ namespace KsefClient.ClientHttp
             var request = JsonSerializer.Serialize(model);
             var content = new StringContent(request, Encoding.UTF8, Json);
 
-            var path = _uriHelper.GenerateUri(_httpClient.BaseAddress.ToString(), RestEndpoint.AuthChallenge);
+            var path = _uriHelper.GenerateUri(BaseAddress, RestEndpoint.AuthChallenge);
 
             _logger.LogInformation(KsefLogData.BuildRequestLog(request, path, HttpMethod.Post));
 
@@ -59,7 +59,7 @@ namespace KsefClient.ClientHttp
             return new AuthorisationChallengeResponse(authChallengeResponse.Timestamp, authChallengeResponse.Challenge);
         }
 
-        public async ValueTask<InitSignedResponse> InitSignedSession([NotNull] string initSession)
+        public async ValueTask<InitSignedResponse> InitSignedSessionAsync([NotNull] string initSession)
         {
             var content = new StringContent(initSession, Encoding.UTF8, Octet);
 

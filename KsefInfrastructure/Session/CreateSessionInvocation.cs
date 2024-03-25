@@ -7,10 +7,10 @@ namespace KsefInfrastructure.Session
 {
     public class CreateSessionInvocation : IRequestHandler<CreateSessionRequest, CreateSessionResponse>
     {
-        private readonly IAuthChallenge _authChallenge;
+        private readonly IKsefMethods _authChallenge;
         private readonly IXmlHelper _xmlHelper;
 
-        public CreateSessionInvocation(IAuthChallenge authChallenge, IXmlHelper xmlHelper)
+        public CreateSessionInvocation(IKsefMethods authChallenge, IXmlHelper xmlHelper)
         {
             _authChallenge = authChallenge;
             _xmlHelper = xmlHelper;

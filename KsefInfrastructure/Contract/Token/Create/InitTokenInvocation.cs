@@ -12,16 +12,16 @@ namespace KsefInfrastructure.Contract.Token.Create
 {
     public class InitTokenInvocation : IRequestHandler<InitTokenRequest>
     {
-        private readonly IAuthChallenge _authChallenge;
         private readonly ILogger<InitTokenInvocation> _logger;
+        private readonly IKsefMethods _ksefMethods;
         private readonly IXmlHelper _xmlHelper;
         private readonly IConfiguration _configuration;
         private readonly ICertificateHelper _certificateHelper;
 
-        public InitTokenInvocation(IAuthChallenge authChallenge, ILogger<InitTokenInvocation> logger, IXmlHelper xmlHelper,
+        public InitTokenInvocation(ILogger<InitTokenInvocation> logger, IKsefMethods ksefMethods, IXmlHelper xmlHelper,
             IConfiguration configuration, ICertificateHelper certificateHelper)
         {
-            _authChallenge = authChallenge;
+            _ksefMethods = ksefMethods;
             _logger = logger;
             _xmlHelper = xmlHelper;
             _configuration = configuration;
@@ -39,7 +39,7 @@ namespace KsefInfrastructure.Contract.Token.Create
             _logger.LogInformation("Starting generate authorization token");
 
             // Get auth chellenge first step
-            var authorizationChallenge = await _authChallenge.GetAuthorisationChallengeAsync(request.Command.Type, request.Command.Identifier);
+            var authorizationChallenge = await _ksefMethods.GetAuthorisationChallengeAsync(request.Command.Type, request.Command.Identifier);
 
             var pathToFile = BuildFilePath("InitSignedXmlFilePath");
             // Fill InitSessionSignedRq file
@@ -55,7 +55,7 @@ namespace KsefInfrastructure.Contract.Token.Create
 
             if (xadesSign != null)
             {
-                var initSession = await _authChallenge.InitSignedSession(xadesSign);
+                var initSession = await _ksefMethods.InitSignedSessionAsync(xadesSign);
             }
         }
 

@@ -33,7 +33,7 @@ namespace KsefInfrastructure.IoC
                 .InstancePerLifetimeScope();
 
             builder.RegisterType<KsefApiHttp>()
-                .As<IAuthChallenge>()
+                .As<IKsefMethods>()
                 .InstancePerLifetimeScope();
 
             builder.RegisterType<UriHelper>()
